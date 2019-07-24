@@ -5,6 +5,8 @@ tags: [hacking, web application]
 excerpt: "Hacking, Web Application"
 ---
 
+
+
 SMTP Header Injection is a vulnerability where an attacker may inject additional SMTP headers through an input field designated for another header.
 
 ## Motivations for SMTP Header Injection
