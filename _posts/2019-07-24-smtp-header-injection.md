@@ -41,9 +41,10 @@ An example with concrete data:
 Additional headers may be injected if the web application is simply concatenating the user's input together with the names of the header fields or if the email client takes escape sequences literally, like that for a newline.
 
 Ex.
+
 	"From: " + $sender + "\n" + "To: " + $hardcoded_recipient + "\n" + "Subject: " + ...
 	
-In the example, the header fields are concatenated to construct the same raw formatting as in the previous examples. In this case, once the entire string is parsed by the email client to construct and send the email, it will have no awareness of what was provided by the user vs. what the original hardcoded header names were. This allows the user to provide the string "`user@website.com\nCc:recipient2@website.com\n` as the input to $sender to effectively inject a new Cc header into the email. The structure of the resulting email would be: 
+In the example, the header fields are concatenated to construct the same raw formatting as in the previous examples. In this case, once the entire string is parsed by the email client to construct and send the email, it will have no awareness of what was provided by the user vs. what the original hardcoded header names were. This allows the user to provide the string `user@website.com\nCc:recipient2@website.com\n` as the input to *$sender* to effectively inject a new *Cc* header into the email. The structure of the resulting email would be: 
 
 	From: user@website.com
 	Cc: recipient2@website.com
@@ -56,7 +57,7 @@ In the example, the header fields are concatenated to construct the same raw for
 	User
 
 
-Even though vulnerable applications and email clients aren't always concatenating everything together as literally as in this example, injecting additional headers works on the same premise in general and makes use of CRLF strings to designate new header fields. Because of these variations, different clients may require slightly modified injections to align with the quirks of each email client, though the concepts are the same. Also, depending on the context of where the injection is originating from or what languages are used in the application, the escape sequences for CRLF may need to be encoded or represented differently. In some cases, they may need to be passed in hex (`\x0d\x0a`), URL encoded (`%0d%0a`), or with just the C-style escape sequences (`\r\n`). Additionally there may be different requirements for whether the entire CRLF sequence is needed to represent a new line. Typically, Linux only needs the line feed (LF) to terminate a line while Windows requires the carriage return as well (CRLF), and then the HTTP protocol also uses CRLF as standard for line termination.
+Even though vulnerable applications and email clients aren't always concatenating everything together as literally as in this example, injecting additional headers works on the same premise in general and makes use of CRLF strings to designate new header fields. Because of these variations, different clients may require slightly modified injections to align with the quirks of each email client, though the concepts are the same. Also, depending on the context of where the injection is originating from or what languages are used in the application, the escape sequences for CRLF may need to be encoded or represented differently. In some cases, they may need to be passed in hex `\x0d\x0a`, URL encoded `%0d%0a`, or with just the C-style escape sequences `\r\n`. Additionally there may be different requirements for whether the entire CRLF sequence is needed to represent a new line. Typically, Linux only needs the line feed (LF) to terminate a line while Windows requires the carriage return as well (CRLF), and then the HTTP protocol also uses CRLF as standard for line termination.
 
 One other potential nuance of differing email clients is that the client may separate away some header fields like "To" or "From" by individually setting them in the email's header in a way that would prevent injection. In these cases, injection payloads would just result in invalid field data if it were to contain CRLF characters. In many cases however, another field such as "Subject" might be tacked on to the header in a way that allows for including newlines and injecting more fields.
 
@@ -82,7 +83,7 @@ Result:
 	Thanks,
 	User
 
-**Ex 2: Modify To & Subject**
+### Ex 2: Modify To & Subject**
 
 When specifying pre-existing fields as part of the injection payload, they may appear redundantly in the raw structure of the email. Depending on the email client that is used to consume the data provided for the header however, this will not result in an error, but may either append the new data to the existing value of the header field or replace it altogether. Different clients may behave differently, but in this example we will assume that the new data will simply be appended:
 
@@ -127,7 +128,7 @@ Many forms that are used to generate emails do not allow the user to provide a m
 	-Logistics
 
 
-A user could break into the body's message by supplying the required <CRLF> to end the current line and another immediate <CRLF> to effectively insert an empty null line before starting the body's message, as specified in RFC 822. Many systems won't require the Carriage Return <CR> for improved interoperability with other implementations, so essentially what is needed are two back-to-back Line Feeds.
+A user could break into the body's message by supplying the required *CRLF* to end the current line and another immediate *CRLF* to effectively insert an empty null line before starting the body's message, as specified in RFC 822. Many systems won't require the Carriage Return *CR* for improved interoperability with other implementations, so essentially what is needed are two back-to-back Line Feeds.
 
 The user can provide the following payload as the Shipment Number in this case to break out of the headers to write into the body's message:
 
@@ -230,40 +231,4 @@ This solves the problem of the original message still being displayed in the ema
 
 This was just an example of some of the header fields that SMTP takes advantage of; there are many more however which can all be useful in different use cases.
 
-
-
-
-
-
-
-# H1 Test Markdown
-
-## H2 Heading
-
-### H3 Heading
-
-here's basic text
-
-*italics*
-**bold**
-[link](https://github.com/michaelehmke)
-
-bulleted list:
-* first
-+ second
-- third
-
-Python code block:
-```python
-	import numpy as numpy
-
-	def test_func(x,y):
-		z = np.sum(x,y)
-		return z
-```
-
-inline code: `x+y`
-
-image:
-<img src="{{ site.url }}{{ site.baseurl }}images/contact_us_1.png" alt="Screenshot of Contact Us page">
 
