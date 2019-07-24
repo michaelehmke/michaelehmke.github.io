@@ -108,7 +108,7 @@ analytics:
 # Site Author
 author:
   name             : "Michael Ehmke"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "temp bio"
   location         : "Raleigh, NC"
   email            :
@@ -302,4 +302,4 @@ defaults:
     values:
       layout: single
       author_profile: true
-      
+
