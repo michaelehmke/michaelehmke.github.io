@@ -3,8 +3,6 @@ layout: archive
 permalink: /breaking/
 title: "Hacking Posts by Tags"
 author_profile: true
-header:
-	image: ""
 ---
 
 {% include base_path %}

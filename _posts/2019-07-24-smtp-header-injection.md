@@ -2,8 +2,6 @@
 title: "Primer: SMTP Header Injection"
 date: 2019-07-24
 tags: [hacking, web application]
-header:
-	image: ""
 excerpt: "Hacking, Web Application"
 ---
 
