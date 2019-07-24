@@ -6,10 +6,8 @@ excerpt: "Hacking, Web Application"
 ---
 
 
-
 SMTP Header Injection is a vulnerability where an attacker may inject additional SMTP headers through an input field designated for another header.
 
-## Motivations for SMTP Header Injection
 
 The implications of a SMTP Header Injection vulnerability include things such as a spam relay or a specialized phishing vector. An attacker could modify the headers to send spam to targets completely outside of any intended recipients with completely custom messages - all through the vulnerable site, thereby avoiding having to originate the emails himself and with the resources of the target site. An attacker could also take advantage of the vulnerability to target employees of the site's company with phishing emails since the company's infrastructure will likely be set up to trust emails from their own SMTP service.
 
@@ -20,57 +18,56 @@ For example in the form shown below, there are input fields which allow the user
 
 The From and Subject fields will be inserted into the corresponding FROM and SUBJECT header fields of the email, while the Message will be included as the body. When the email client constructs the email to be sent with the data provided by the user, it will have a structure similar to the following:
 
-From: $sender
-To: $hardcoded_recipient
-Subject: $subject
+	From: $sender
+	To: $hardcoded_recipient
+	Subject: $subject
 
-$message
+	$message
 
 
 An example with concrete data:
 
-```
-From: user@website.com
-To: webmaster@targetsite.com
-Subject: This is my subject
+	From: user@website.com
+	To: webmaster@targetsite.com
+	Subject: This is my subject
 
-Hi webmaster,
-I like your website.
-Thanks,
-User
-```
+	Hi webmaster,
+	I like your website.
+	Thanks,
+	User
+
 
 
 Additional headers may be injected if the web application is simply concatenating the user's input together with the names of the header fields or if the email client takes escape sequences literally, like that for a newline.
 
 Ex.
-"From: " + $sender + "\n" + "To: " + $hardcoded_recipient + "\n" + "Subject: " + ...
+	"From: " + $sender + "\n" + "To: " + $hardcoded_recipient + "\n" + "Subject: " + ...
 	
-In the example, the header fields are concatenated to construct the same raw formatting as in the previous examples. In this case, once the entire string is parsed by the email client to construct and send the email, it will have no awareness of what was provided by the user vs. what the original hardcoded header names were. This allows the user to provide the string "user@website.com\nCc:recipient2@website.com\n" as the input to $sender to effectively inject a new Cc header into the email. The structure of the resulting email would be: 
+In the example, the header fields are concatenated to construct the same raw formatting as in the previous examples. In this case, once the entire string is parsed by the email client to construct and send the email, it will have no awareness of what was provided by the user vs. what the original hardcoded header names were. This allows the user to provide the string "`user@website.com\nCc:recipient2@website.com\n` as the input to $sender to effectively inject a new Cc header into the email. The structure of the resulting email would be: 
 
-From: user@website.com
-Cc: recipient2@website.com
-To: webmaster@targetsite.com
-Subject: This is my subject
+	From: user@website.com
+	Cc: recipient2@website.com
+	To: webmaster@targetsite.com
+	Subject: This is my subject
 
-Hi webmaster,
-I like your website.
-Thanks,
-User
+	Hi webmaster,
+	I like your website.
+	Thanks,
+	User
 
 
-Even though vulnerable applications and email clients aren't always concatenating everything together as literally as in this example, injecting additional headers works on the same premise in general and makes use of CRLF strings to designate new header fields. Because of these variations, different clients may require slightly modified injections to align with the quirks of each email client, though the concepts are the same. Also, depending on the context of where the injection is originating from or what languages are used in the application, the escape sequences for CRLF may need to be encoded or represented differently. In some cases, they may need to be passed in hex (\x0d\x0a), URL encoded (%0d%0a), or with just the C-style escape sequences (\r\n). Additionally there may be different requirements for whether the entire CRLF sequence is needed to represent a new line. Typically, Linux only needs the line feed (LF) to terminate a line while Windows requires the carriage return as well (CRLF), and then the HTTP protocol also uses CRLF as standard for line termination.
+Even though vulnerable applications and email clients aren't always concatenating everything together as literally as in this example, injecting additional headers works on the same premise in general and makes use of CRLF strings to designate new header fields. Because of these variations, different clients may require slightly modified injections to align with the quirks of each email client, though the concepts are the same. Also, depending on the context of where the injection is originating from or what languages are used in the application, the escape sequences for CRLF may need to be encoded or represented differently. In some cases, they may need to be passed in hex (`\x0d\x0a`), URL encoded (`%0d%0a`), or with just the C-style escape sequences (`\r\n`). Additionally there may be different requirements for whether the entire CRLF sequence is needed to represent a new line. Typically, Linux only needs the line feed (LF) to terminate a line while Windows requires the carriage return as well (CRLF), and then the HTTP protocol also uses CRLF as standard for line termination.
 
 One other potential nuance of differing email clients is that the client may separate away some header fields like "To" or "From" by individually setting them in the email's header in a way that would prevent injection. In these cases, injection payloads would just result in invalid field data if it were to contain CRLF characters. In many cases however, another field such as "Subject" might be tacked on to the header in a way that allows for including newlines and injecting more fields.
 
 Common uses of SMTP Header Injection include modifying existing fields such as the To or Subject fields by either appending additional recipients or overwriting a pre-defined subject. Aside from pre-existing header fields, fields that were not present before may be added, such as Cc and Bcc.
 
 
-Ex 1: Inject Bcc & Cc
+### Ex 1: Inject Bcc & Cc
 
 The following payload may be provided as the Subject to inject new Bcc and Cc header fields: 
 
-`test subject\nBcc:user1@web.com\nCc:user2@web.com\n"`
+	test subject\nBcc:user1@web.com\nCc:user2@web.com\n
 	
 Result:
 
@@ -85,13 +82,13 @@ Result:
 	Thanks,
 	User
 
-Ex 2: Modify To & Subject
+**Ex 2: Modify To & Subject**
 
 When specifying pre-existing fields as part of the injection payload, they may appear redundantly in the raw structure of the email. Depending on the email client that is used to consume the data provided for the header however, this will not result in an error, but may either append the new data to the existing value of the header field or replace it altogether. Different clients may behave differently, but in this example we will assume that the new data will simply be appended:
 
 The following payload may be provided as the From address to append additional recipients as well as content to the Subject:
 
-	"user@website.com\nTo:user1@other.com,user2@web.com\nSubject:this is new\n"
+	user@website.com\nTo:user1@other.com,user2@web.com\nSubject:this is new\n
 
 Result:
 
@@ -115,7 +112,7 @@ The two Subject headers may also become concatenated with each other to form the
 	Subject:this is newtestsubject 
 
 
-Ex 3: Inject a message into the body
+### Ex 3: Inject a message into the body
 
 Many forms that are used to generate emails do not allow the user to provide a message in the body of the email, and will send it with a predefined message. For example, a standard email generated may be the following, where the only user provided input is the user's email address and shipment number:
 
@@ -134,7 +131,7 @@ A user could break into the body's message by supplying the required <CRLF> to e
 
 The user can provide the following payload as the Shipment Number in this case to break out of the headers to write into the body's message:
 
-	"replaced number\n\nbreak into body's message\nthis is the second line of the message\nThanks,\nAttacker\n"
+	replaced number\n\nbreak into body's message\nthis is the second line of the message\nThanks,\nAttacker\n
 
 The resulting email is:
 
