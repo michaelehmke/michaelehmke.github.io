@@ -64,7 +64,7 @@ One other potential nuance of differing email clients is that the client may sep
 Common uses of SMTP Header Injection include modifying existing fields such as the To or Subject fields by either appending additional recipients or overwriting a pre-defined subject. Aside from pre-existing header fields, fields that were not present before may be added, such as Cc and Bcc.
 
 
-### Ex 1: Inject Bcc & Cc
+### Ex 1: Inject `Bcc` & `Cc`
 
 The following payload may be provided as the Subject to inject new Bcc and Cc header fields: 
 
@@ -83,7 +83,7 @@ Result:
 	Thanks,
 	User
 
-### Ex 2: Modify To & Subject**
+### Ex 2: Modify `To` & `Subject`
 
 When specifying pre-existing fields as part of the injection payload, they may appear redundantly in the raw structure of the email. Depending on the email client that is used to consume the data provided for the header however, this will not result in an error, but may either append the new data to the existing value of the header field or replace it altogether. Different clients may behave differently, but in this example we will assume that the new data will simply be appended:
 
@@ -198,7 +198,7 @@ The result from the previous example where a message was injected into the body 
 
 The following payload may be injected into the same position in the Subject header field as before, this time taking advantage of the Content-Type field:
 
-	"replaced number\nContent-type:multipart/mixed;boundary=myboundary\n\n--myboundary\n\nthis is in the body's message after the boundary\nthis is the second line\n\n--myboundary--\n"
+	replaced number\nContent-type:multipart/mixed;boundary=myboundary\n\n--myboundary\n\nthis is in the body's message after the boundary\nthis is the second line\n\n--myboundary--\n
 
 The resulting email:
 

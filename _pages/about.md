@@ -3,6 +3,4 @@ title: "About"
 permalink: /about/
 ---
 
-this is a description of myself; if I'm to use this as a portfolio, it can be seen as an extension of a resume. but if a blog, then no need to be so formal
-
-etc, etc, etc
+My name is Michael Ehmke and I'm interested in offensive cyber security, reversing, building security tools, and kernel development. This site is dedicated to projects and explorations in these areas. 

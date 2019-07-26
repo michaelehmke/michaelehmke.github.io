@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /breaking/
-title: "Hacking Posts by Tags"
+title: "Posts by Tags"
 author_profile: true
 ---
 
