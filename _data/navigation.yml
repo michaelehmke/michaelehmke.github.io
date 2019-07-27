@@ -1,9 +1,15 @@
 # main links
 main:
-  - title: "about"
+  - title: "../"
+    url: ../
+  - title: "/about"
     url: /about/
-  - title: "breaking"
+  - title: "/reversing"
+    url: /
+  - title: "/hacking"
     url: /breaking/
+  - title: "/binary"
+    url: /
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"

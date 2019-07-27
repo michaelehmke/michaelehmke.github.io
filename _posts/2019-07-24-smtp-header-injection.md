@@ -11,10 +11,11 @@ SMTP Header Injection is a vulnerability where an attacker may inject additional
 
 The implications of a SMTP Header Injection vulnerability include things such as a spam relay or a specialized phishing vector. An attacker could modify the headers to send spam to targets completely outside of any intended recipients with completely custom messages - all through the vulnerable site, thereby avoiding having to originate the emails himself and with the resources of the target site. An attacker could also take advantage of the vulnerability to target employees of the site's company with phishing emails since the company's infrastructure will likely be set up to trust emails from their own SMTP service.
 
+The attack vector for this vulnerability is present on many websites - through commonly seen "Contact Us" pages.
 
 For example in the form shown below, there are input fields which allow the user to specify the From Address, Subject, and Message of the email that will be sent when the form is submitted. 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_1.png" alt="Screenshot of Contact Us page">
+<img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_1.png" alt="Screenshot of Contact Us page" width="46%">
 
 The From and Subject fields will be inserted into the corresponding FROM and SUBJECT header fields of the email, while the Message will be included as the body. When the email client constructs the email to be sent with the data provided by the user, it will have a structure similar to the following:
 

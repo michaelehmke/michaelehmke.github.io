@@ -75,7 +75,7 @@
   p,
   li,
   dl {
-    font-size: .75em;
+    font-size: .88em;
   }
 
   /* paragraph indents */
@@ -113,6 +113,12 @@
     font-size: $type-size-6;
   }
 
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
   .small {
     font-size: $type-size-6;
   }
