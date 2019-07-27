@@ -53,7 +53,7 @@ $type-size-8: 0.625em !default; // ~10px
 $gray: #7a8288 !default;
 $dark-gray: mix(#000, $gray, 40%) !default;
 $darker-gray: mix(#000, $gray, 60%) !default;
-$black: #000 !default
+$black: mix(#000, $gray, 100%) !default
 $light-gray: mix(#fff, $gray, 50%) !default;
 $lighter-gray: mix(#fff, $gray, 90%) !default;
 
