@@ -1,8 +1,8 @@
 ---
 title: "Primer: SMTP Header Injection"
 date: 2019-07-24
-tags: [hacking, web application]
-excerpt: "Hacking, Web Application"
+tags: [vulnerability]
+categories: [hacking, web application]
 ---
 
 
@@ -15,7 +15,7 @@ The attack vector for this vulnerability is present on many websites - through c
 
 For example in the form shown below, there are input fields which allow the user to specify the `From Address`, `Subject`, and `Message` of the email that will be sent when the form is submitted. 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_1.png" alt="Screenshot of Contact Us page" width="46%" style="min-width:430px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_1.png" alt="Screenshot of Contact Us page" width="46%" style="min-width:350px">
 
 The From and Subject fields will be inserted into the corresponding `FROM` and `SUBJECT` header fields of the email, while the `Message` will be included as the body. When the email client constructs the email to be sent with the data provided by the user, it will have a structure similar to the following:
 
