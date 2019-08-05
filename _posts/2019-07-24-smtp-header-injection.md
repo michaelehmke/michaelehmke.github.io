@@ -17,10 +17,6 @@ For example in the form shown below, there are input fields which allow the user
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_1.png" alt="Screenshot of Contact Us page" width="auto" style="min-width:430px">
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/color_rgb_after.png" alt="Screenshot of Contact Us page" width="auto">
-
-<img src="{{ site.url }}{{ site.baseurl }}/images/color.png" alt="Screenshot of Contact Us page" width="auto">
-
 
 The From and Subject fields will be inserted into the corresponding `FROM` and `SUBJECT` header fields of the email, while the `Message` will be included as the body. When the email client constructs the email to be sent with the data provided by the user, it will have a structure similar to the following:
 
