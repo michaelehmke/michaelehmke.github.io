@@ -19,7 +19,38 @@ layout: default
 
   <div class="archive">
     {% unless page.header.overlay_color or page.header.overlay_image %}
-      <h1 id="page-title" class="page__title">{{ page.title }}</h1>
+    <div>
+      {% include logo-beach-van.html %}
+      <div class="page-title-wrapper">
+        <div>
+          <h1 id="page-title" class="page__title">michaelehmke@blog:~#</h1>
+        </div>
+        <div>
+          <p class="page-subtitle"><i>break, build, repeat</i></p>
+        </div>
+        <div>
+          <ul class="social-icons">            
+            <li class="social-icons email-icon">
+              <a href="mailto:michael5ehmke@gmail.com">
+                <meta itemprop="email" content="michael5ehmke@gmail.com" />
+                <i class="fas fa-fw fa-envelope-square" aria-hidden="false"></i>
+              </a>
+            </li>
+            <li class="social-icons linkedin-icon">
+              <a href="https://linkedin.com/in/michael-ehmke-2017" itemprop="sameAs" rel="nofollow noopener noreferrer">
+                <i class="fab fa-fw fa-linkedin" aria-hidden="false"></i></a>
+            </li>
+            <li class="social-icons github-icon">
+              <a href="https://github.com/michaelehmke" itemprop="sameAs" rel="nofollow noopener noreferrer">
+                <i class="fab fa-fw fa-github" aria-hidden="false"></i></a>
+            </li>
+            <li class="social-icons rss-icon">
+              <a href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | relative_url }}{% endif %}"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     {% endunless %}
     {{ content }}
   </div>

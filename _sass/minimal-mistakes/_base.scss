@@ -13,7 +13,9 @@ body {
   padding: 0;
   color: $text-color;
   font-family: $global-font-family;
-  line-height: 1.5;
+  line-height: 1.7;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
 
   &.overflow--hidden {
     /* when primary navigation is visible, the content in the background won't scroll */
@@ -168,8 +170,12 @@ td > code {
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   font-size: 0.88em;
-  background: $code-background-color;
+  // background: $code-background-color;
   border-radius: $border-radius;
+  background: #9ce43d38;
+  outline: auto;
+  outline-width: 2px;
+  outline-color: #5abc00;
 
   &:before,
   &:after {

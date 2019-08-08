@@ -8,26 +8,33 @@
 
   @include breakpoint($large) {
     float: right;
-    width: calc(100% - #{$right-sidebar-width-narrow});
-    padding-right: $right-sidebar-width-narrow;
+    // width: calc(100% - #{$right-sidebar-width-narrow});
+    width: 100%;
+    // padding-right: 50px;
+    // padding-left: 50px;
   }
 
   @include breakpoint($x-large) {
-    width: calc(100% - #{$right-sidebar-width});
-    padding-right: $right-sidebar-width;
+    // width: calc(100% - #{$right-sidebar-width});
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
   }
 }
 
 .archive__item {
   position: relative;
+  padding-left: 1.5em;
 }
 
 .archive__subtitle {
   margin: 1.414em 0 0;
-  padding-bottom: 0.5em;
-  font-size: $type-size-5;
-  color: $muted-text-color;
-  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.3em;
+  padding-top: 1.3em;
+  font-size: 1.5em;
+  color: #585858;
+  font-weight: 600;
+  // border-bottom: 1px solid $border-color;
 
   + .list__item .archive__item-title {
     margin-top: 0.5em;
@@ -53,6 +60,10 @@
   a + a {
     opacity: 0.5;
   }
+
+  // a:hover {
+  //   color:#556B2F;
+  // }
 }
 
 /* remove border*/
@@ -436,3 +447,74 @@
     }
   }
 }
+
+
+/* -------------------- Home Page Title Header Styling -------------------- */
+
+.archive {
+
+  .page__title {
+    display:inline-block;
+    font-size:1.8em;
+    color:#424242;
+    margin:0
+  }
+
+  .page-title-wrapper {
+    display:inline-block;
+    vertical-align:top;
+    margin-left:.5em;
+  }
+
+  .page-subtitle {
+    margin:0;
+  }
+
+  ul.social-icons {
+    list-style-type:none;
+    padding:0;
+    margin:0;
+  }
+
+  li.social-icons {
+    display:inline-block;
+  }
+
+}
+
+.github-icon {
+  .fa-github {
+    color:black;
+  }
+  .fa-github:hover {
+    color:gray;
+  }
+}
+
+.linkedin-icon {
+  .fa-linkedin {
+    color:black;
+  }
+  .fa-linkedin:hover {
+    color:#007bb6;
+  }
+}
+
+.email-icon {
+  .fa-envelope-square {
+    color:black;
+  }
+  .fa-envelope-square:hover {
+    color:#c70303;
+  }
+}
+
+.rss-icon {
+  .fa-rss-square {
+    color:black;
+  }
+  .fa-rss-square:hover {
+    color:#fa9b39;
+  }
+}
+
