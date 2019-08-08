@@ -3,6 +3,7 @@ title: "Case Study: SMTP Header Injection - Part 1"
 date: 2019-07-25
 tags: [bug bounty]
 categories: [hacking, web application]
+author_profile: false
 ---
 
 
@@ -16,7 +17,8 @@ As the title shows, this will focus on a SMTP Header Injection vulnerability tha
 
   TODO *** note that this was on an externally facing site accessible from the internet
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_2.png" alt="Screenshot of Contact Us page" width="auto" style="min-width:350px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/contact_us_2.png" alt="Screenshot of Contact Us page">
+
 
 Through some testing it was found that the Subject field, and that field alone, was vulnerable to SMTP Header Injection. I was able to inject Cc, Bcc, etc. headers and could break out of the headers to inject content into the body.
 
@@ -56,7 +58,8 @@ The following are examples of different payloads being injected into the `Subjec
   }
 ```
 Resulting Email:
-<img src="{{ site.url }}{{ site.baseurl }}/images/email_injected_cc_ex.png" alt="Email with injected Cc field" width="auto" style="min-width:350px">
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/email_injected_cc_ex.png" alt="Email with injected Cc field" class="left-align shadow">
 
 <br/>
 <b>Inject another recipient in the `To` field:</b>
@@ -72,7 +75,8 @@ Resulting Email:
   }
 ```
 Resulting Email:
-<img src="{{ site.url }}{{ site.baseurl }}/images/email_injected_to_ex.png" alt="Email with injected To field" width="auto" style="min-width:350px">
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/email_injected_to_ex.png" alt="Email with injected To field" class="left-align shadow">
 
 <br/>
 <b>Inject a message into the email's body:</b>
@@ -88,7 +92,8 @@ Resulting Email:
   }
 ```
 Resulting Email:
-<img src="{{ site.url }}{{ site.baseurl }}/images/email_injected_body_ex.png" alt="Email with injected To field" width="auto" style="min-width:350px">
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/email_injected_body_ex.png" alt="Email with injected To field" class="left-align shadow">
 
 
 <h2>Use Case: Impersonate and Exchange Emails as any Employee</h2>
@@ -124,11 +129,11 @@ An email may be generated with the following JSON:
 
 The resulting email that is received in the `hr_inbox@haxxme.com` mailbox:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_replyto_1.png" alt="Email with injected Reply-To header field" width="auto" style="min-width:350px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_replyto_1.png" alt="Email with injected Reply-To header field" class="left-align shadow">
 
 Just from viewing this screen, there is no way to tell that the email is spoofed. Since the `From` email address matches the actual CEO's address in the system, MS Outlook conveniently populates his picture as well as availability status, and if the email address is clicked on for further details, the legitimate details will automatically populate. A suspicious user from the `hr_inbox` mailbox may reply to this email anyways however, by clicking either of the Reply buttons at the top. That user would be presented with this screen and would proceed to write up a response:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_victim_reply_1.png" alt="Victim responding to email with injected recipient" width="auto" style="min-width:350px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_victim_reply_1.png" alt="Victim responding to email with injected recipient" class="left-align shadow">
 
 A user responding quickly may not notice that the email in the To: field is going to the attacker’s address `theceo@gmail.com` rather than the actual HaxxMe address.
 
@@ -143,7 +148,7 @@ This limits not only what can be used as the injected email address, but also wh
   
 At this point, the HR employee replied to TheCEO and the attacker received the response at `theceo@gmail.com`. This allows the attacker to not only receive the response to his spoofed email, but to also avoid any red flags that would’ve been raised if the response had went to TheCEO's actual address. Below is the response that the attacker received in his inbox:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_victim_response_1.png" alt="Victim's response shows up in attackers inbox" width="auto" style="min-width:350px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_victim_response_1.png" alt="Victim's response shows up in attackers inbox" class="left-align shadow">
 
 The attacker can’t reply directly to this email however because then his response would be shown as coming from `theceo@gmail.com`, or it would be blocked altogether at the proxy level. 
 
@@ -151,14 +156,14 @@ Instead, the attacker can just repeat the whole process of injecting the same he
 
 Attacker’s *perceived* response to the thread after re-injecting headers:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_perceived_response.png" alt="Attacker's response showing up as part of the email thread" width="auto" style="min-width:350px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_perceived_response.png" alt="Attacker's response showing up as part of the email thread" class="left-align shadow">
 
   
 It can be seen that Outlook automatically grouped the emails together in the same thread since the Subject was the same, making it appear to the HR employee that TheCEO did in fact receive and respond to the email for verification.
 
 The contents of the attacker's email:
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_attacker_response_1.png" alt="Contents of attacker's response" width="auto" style="min-width:350px">
+<img src="{{ site.url }}{{ site.baseurl }}/images/uc1_attacker_response_1.png" alt="Contents of attacker's response" class="left-align shadow">
 
 This Use Case was just an example, but much more convincing phishing attempts could be easily made. Also, in every email spoofed above, the first line in the message was always auto-generated and that may not be desirable by the attacker. The next use case shows how that may be cleaned up.
 
