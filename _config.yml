@@ -18,9 +18,9 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 locale                   : "en-US"
 title                    : "Michael Ehmke"
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
+subtitle                 : "build, break, repeat" # site tagline that appears below site title in masthead
 name                     : "Michael Ehmke"
-description              : "breaking and building things"
+description              : "break, build, repeat"
 url                      : "https://michaelehmke.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : michaelehmke/michaelehmke.github.io # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -112,6 +112,8 @@ author:
   bio              : "break, build, repeat"
   location         : "Raleigh, NC"
   email            :
+  linkedin         : "https://linkedin.com/in/michael-ehmke-2017"
+  github           : "https://github.com/michaelehmke"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
@@ -131,6 +133,9 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/michael-ehmke-2017"
 
 # Site Footer
 footer:
@@ -153,6 +158,9 @@ footer:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url:
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/"
 
 
 # Reading Files
@@ -289,7 +297,7 @@ defaults:
       type: posts
     values:
       layout: single
-      author_profile: true
+      author_profile: false
       read_time: false
       comments: # true
       share: true
@@ -301,6 +309,5 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false
       read_time: false
-

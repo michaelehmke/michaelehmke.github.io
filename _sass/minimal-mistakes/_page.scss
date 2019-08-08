@@ -22,12 +22,14 @@
 .page {
   @include breakpoint($large) {
     float: right;
-    width: calc(100% - #{$right-sidebar-width-narrow});
+    // width: calc(100% - #{$right-sidebar-width-narrow});
+    width: 100%;
     padding-right: 0px;
   }
 
   @include breakpoint($x-large) {
-    width: calc(100% - #{$right-sidebar-width});
+    // width: calc(100% - #{$right-sidebar-width});
+    width: 100%;
     padding-right: 0px;
   }
 
@@ -48,6 +50,17 @@
       margin-right: 0;
       width: 100%;
       clear: both;
+    }
+
+    .page__content {
+      a {
+        color: #e69500;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #e67500;
+      }
     }
   }
 }
@@ -75,7 +88,7 @@
   p,
   li,
   dl {
-    font-size: .88em;
+    font-size: $type-size-6;
   }
 
   /* paragraph indents */
@@ -89,6 +102,10 @@
         margin-top: -($indent-var);
       }
     }
+  }
+
+  p {
+    text-align: justify;
   }
 
   a:not(.btn) {
@@ -117,8 +134,19 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: auto;
+    min-width: 350px;
+  }
+
+  img.left-align {
+    margin-left: 2em;
   }
   
+  img.shadow {
+    box-shadow: 0 0 7px 1px #ccc;
+    border-radius: 8px;
+  }
+
   .small {
     font-size: $type-size-6;
   }

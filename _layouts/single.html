@@ -16,6 +16,13 @@ layout: default
 
 <div id="main" role="main">
   {% include sidebar.html %}
+  {% if page.author_profile or layout.author_profile or page.sidebar %}
+    <style>
+      article.page {
+        width: 80%;
+      }
+    </style>
+  {% endif %}
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
@@ -86,7 +93,7 @@ layout: default
             </nav>
           </aside>
         {% endif %}
-        {{ content }}{% include cursor.html %}
+        {{ content }}
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
 
