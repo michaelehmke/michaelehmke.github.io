@@ -4,12 +4,12 @@ main:
     url: ../
   - title: "/about"
     url: /about/
-  - title: "/reversing"
-    url: /
-  - title: "/hacking"
-    url: /breaking/
-  - title: "/binary"
-    url: /
+  # - title: "/posts"
+  #   url: /posts/
+  - title: "/categories"
+    url: /categories/
+  - title: "/tags"
+    url: /tags/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
