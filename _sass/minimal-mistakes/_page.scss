@@ -135,11 +135,21 @@
     margin-left: auto;
     margin-right: auto;
     width: auto;
-    min-width: 350px;
+    // min-width: 350px;
   }
 
   img.left-align {
     margin-left: 2em;
+  }
+
+  img.bottom-join-shadow {
+    box-shadow: 0 0 7px 1px #ccc;
+    border-radius: 8px 8px 0 0;
+  }
+
+  img.top-join-shadow {
+    box-shadow: 0 0 7px 1px #ccc;
+    border-radius: 0 0 8px 8px;
   }
   
   img.shadow {
