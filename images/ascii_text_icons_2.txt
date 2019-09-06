@@ -1,0 +1,121 @@
+
+
+
+
+
+ -,-----,--;;
+ _____________
+( |______| |__\
+|=======VW=====;
+|______________;
+  (x)      (x) 
+
+
+ _____________
+( |______| |__\
+|--------------)
+|______________;
+ (  )     (  ) 
+
+
+
+
+
+
+    ^
+   /|\
+  % | %
+  % | %
+ %  |  %
+ %	|  %
+ %	|  %
+  % | %
+  % | %
+   \|/
+    ^
+
+
+    ^
+   /1\
+  0 1 0
+  0 1 0
+ 0  1  0
+ 0	1  0
+ 0	1  0
+  0 1 0
+  0 1 0
+   \1/
+    ^
+
+
+
+
+RRRRRR EEEEEE V     V EEEEEE RRRRRR SSSSS  IIIIII NN    N GGGGGG
+R    R E      V     V E      R    R S    S   II   N N   N G    
+R    R E       V   V  E      R    R S        II   N N   N G    
+RRRRR  EEE     V   V  EEE    RRRRR  SSSSS    II   N  N  N G
+R   R  E        V V   E      R   R       S   II   N  N  N G   GGG
+R    R E        V V   E      R    R S    S   II   N   N N G    G
+R    R EEEEEE    V    EEEEEE R    R  SSSS  IIIIII N    NN  GGGG
+
+
+H    H    A     CCCC  K   K IIIIII NN    N GGGGGG
+H    H   A A   C    C K  K    II   N N   N G
+H    H   A A   C      K K     II   N N   N G
+HHHHHH  A   A  C      KK      II   N  N  N G
+H    H  AAAAA  C      K K     II   N  N  N G   GGG
+H    H A     A C    C K  K    II   N   N N G    G
+H    H A     A  CCCC  K   K IIIIII N    NN  GGGG
+
+     
+       1
+     0`
+      `1
+  ,===0===,
+  !       !-;
+  !-------!_;
+  ;       ;
+   \_____/
+
+
+
+    ________
+   /________\
+   |    |   |
+   ;__\_;_/_;
+   \
+     \
+   
+
+
+      
+
+
+            _;_
+       _,---------,_
+      %______ ______%
+     %|      |      |%
+   C ||__\___|____\_|| D
+    ' %,     _     ,% '
+     ;  %,  (Y)  ,%  ;
+     | o  \,   ,/  o |
+     ;_(_)__\ /__(_)_;
+     (_______________)
+      |_|         |_|
+
+
+
+           ,_;_,
+       _,---------,_
+      %______ ______%
+     %|      |      |%
+   C ||__\___|____\_|| D
+    ' %,     _     ,% '
+     ;  %,  (Y)  ,%  ;
+     | o  \,   ,/  o |
+     ;_(_)__\ /__(_)_;
+     (_______'_______)
+      |_|         |_|
+
+
+
