@@ -25,7 +25,7 @@ Viewing the source gave hints that it was an Angular app, but nothing useful bey
 
 This was plenty to get started with. I started off messing with the `/api/userAdmin/status` endpoint which returned the date of the last login of the user if within the past month. I thought that this might be vulnerable to Insecure Direct Object Reference and used Burp Intruder to brute-force the `SM_USER` query parameter with a list of usernames. 10 minutes and 18,000 attempts later, I discovered 40+ valid users which had logged in recently, including a particular user we'll call `admin`. This already hinted at the state of authorization on the API endpoints.
 
-At this point, `/api/user/getTransactions` looked promising but it basically just returned back an indication of success or failure. Moving on to the `/api/userAdmin/permissions` endpoint, I found something interesting. When providing my username as the value for the query parameters `sso` and `SM_USER`, an empty JSON object was returned; probably indicating that I had no permissions, which wasn't surprising given my blank welcome screen. When trying the `admin` account through Burp Repeater however (and only necessarily for the `sso` param), I received the following JSON response:
+At this point, `/api/user/getTransactions` looked promising but it basically just returned back an indication of success or failure. Moving on to the `/api/userAdmin/permissions` endpoint, I found something interesting. When providing my username as the value for the query parameters `sso` and `SM_USER`, an empty JSON object was returned; probably indicating that I had no permissions, which wasn't surprising given my blank welcome screen. When trying the admin account through Burp Repeater however (and only necessarily for the `sso` param), I received the following JSON response:
 
 ```json
 {
@@ -72,7 +72,7 @@ Checking the value of the local var `e` here confirms the URL for the request we
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/js_dbg_privesc/large/e_url_large.png" alt="e variable set to /api/user/login url" class="left-align shadow" style="width:calc(356px * .66667)">
 
-On line 4596, it looks like it's getting and setting the HTTP headers for the call to that endpoint. Earlier, we had modified the HTTP header `SM_USER` in the request to this endpoint to elicit data for the user `admin`. This returned interesting data but its implications were limited. If we do this again, but make the client piece of the app in the browser make that request itself, rather than sending an out-of-band request through Burp, it may render the UI differently if there is anything that relies on that data.
+On line 4596, it looks like it's getting and setting the HTTP headers for the call to that endpoint. Earlier, we had modified the HTTP header `SM_USER` in the request to this endpoint to elicit data for the admin user. This returned interesting data but its implications were limited. If we do this again, but make the client piece of the app in the browser make that request itself, rather than sending an out-of-band request through Burp, it may render the UI differently if there is anything that relies on that data.
 
 To do this, we'll use the debugger to modify the value of the `SM_USER` header right after it gets set. Stepping into the getHeaders() function shows where this happens, so another breakpoint is placed here:
 
@@ -102,13 +102,13 @@ Viewing the value of the local var `e` here, we can see that JSON object that wa
 
 **pic of local var e with admin details**
 
-We can see that it has been populated with data pertaining to the user `admin`. The client will use this data going forward, so now that we have influenced it to accept this other user's information as my own, I deactivate all breakpoints and resume execution.
+We can see that it has been populated with data pertaining to the admin user. The client will use this data going forward, so now that we have influenced it to accept this other user's information as my own, I deactivate all breakpoints and resume execution.
 
 I was hoping for this to effectively render the UI as the user I was attempting to impersonate but once the page fully loaded, the only change to the interface was reflected in the banner as it now welcomed `admin` instead of my username.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/js_dbg_privesc/large/blank_admin_welcome_page_large.png" alt="blank admin welcome page" class="left-align shadow" style="width:calc(1310px * .66667)">
 
-This single change was promising however, as it showed that the interface would be influenced by data that was returned by requests that we could manipulate. It also wasn't likely that the user `admin` would be presented with a blank page after legitimately logging in, given the relatively high privileges of that account that we saw earlier. I just had to find the right data that needed to be modified to reveal the full UI.
+This single change was promising however, as it showed that the interface would be influenced by data that was returned by requests that we could manipulate. It also wasn't likely that the admin user would be presented with a blank page after legitimately logging in, given the relatively high privileges of that account that we saw earlier. I just had to find the right data that needed to be modified to reveal the full UI.
 
 **pic of requests**
 
@@ -148,9 +148,9 @@ We can see that the `ssoId` parameter was successfully set to `admin` for the re
 
 **pic of permissions in local var e**
 
-Now that the client has accepted this data, we resume execution until our old breakpoints are hit. When execution pauses at the call to `/api/user/login`, we perform the same data manipulation as earlier to make this request under the guise of the user `admin`.
+Now that the client has accepted this data, we resume execution until our old breakpoints are hit. When execution pauses at the call to `/api/user/login`, we perform the same data manipulation as earlier to make this request under the guise of the admin user.
 
-After completing the full execution, I view the loaded web page hoping for new UI elements but still nothing. This time there are no new changes, only the same banner welcoming the `admin` user from the intitial attempt that we just repeated.
+After completing the full execution, I view the loaded web page hoping for new UI elements but still nothing. This time there are no new changes, only the same banner welcoming the admin user from the intitial attempt that we just repeated.
 
 <h3>header for another attempt</h3>
 
@@ -201,9 +201,9 @@ Step over to confirm the value of `e`:
 
 The ssoId has successfully been changed to `haxxor` while retaining the same set of permissions.
 
-At this point we've pulled permissions for the user `admin` from the `/api/userAdmin/permissions` endpoint and have modified the stored JSON to reflect my own ssoId in order to pass any validation checks. Now, we resume execution to hit our old breakpoints to manipulate the request to `/api/user/login` as we had done originally. After this has been done once again, we continue execution to completion and view the page.
+At this point we've pulled permissions for the admin user from the `/api/userAdmin/permissions` endpoint and have modified the stored JSON to reflect my own ssoId in order to pass any validation checks. Now, we resume execution to hit our old breakpoints to manipulate the request to `/api/user/login` as we had done originally. After this has been done once again, we continue execution to completion and view the page.
 
-Finally, the full interface for the `admin` user has been revealed. 
+Finally, the full interface for the admin user has been revealed. 
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/js_dbg_privesc/large/admin_welcome_page_large.png" alt="revealed admin welcome page" class="left-align shadow" style="width:calc(1310px * .66667)">
 

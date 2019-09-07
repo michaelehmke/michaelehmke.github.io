@@ -1,8 +1,8 @@
 ---
 title: "Primer: SMTP Header Injection"
 date: 2019-07-24
-tags: [vulnerability]
-categories: [hacking, web application]
+tags: [vulnerability, web application]
+categories: [hacking]
 author_profile: false
 ---
 

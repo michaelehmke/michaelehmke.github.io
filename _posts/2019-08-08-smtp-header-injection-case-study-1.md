@@ -1,8 +1,8 @@
 ---
 title: "Case Study: SMTP Header Injection - Part 1"
 date: 2019-08-08
-tags: [bug bounty]
-categories: [hacking, web application]
+tags: [bug bounty, web application]
+categories: [hacking]
 author_profile: false
 ---
 
