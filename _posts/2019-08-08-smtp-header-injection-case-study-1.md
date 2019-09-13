@@ -12,7 +12,7 @@ This post details one of the vulnerabilities I found in an undisclosed bug bount
 
 <h2>Context</h2>
 
-As the title shows, this will focus on a SMTP Header Injection vulnerability that was found in an "Contact Us" page, which is a fairly common feature of many web applications. If you're not familiar with this vulnerability, my previous post goes over some of the basics: [Primer: SMTP Header Injection](https://michaelehmke.github.io/smtp-header-injection/). While most articles found online about SMTP Header Injection target soley PHP applications and its vulnerable `mail()` function, this attack was performed against a Java back-end utilizing webMethods. I'll skim through the details of the basic attack and move on to the more interesting use cases, one of which will be described here and another in a later post. 
+As the title shows, this will focus on a SMTP Header Injection vulnerability that was found in an "Contact Us" page, which is a fairly common feature of many web applications. If you're not familiar with this vulnerability, my previous post goes over some of the basics: [Primer: SMTP Header Injection](https://michaelehmke.github.io/smtp-header-injection/). While most articles found online about SMTP Header Injection target soley PHP applications and its vulnerable `mail()` function, this attack was performed against a Java back-end utilizing webMethods. I'll skim through the details of the basic attack and move on to the more interesting use cases, one of which will be described here and another in a later [post](https://michaelehmke.github.io/hacking/smtp-header-injection-case-study-2/). 
 
 The page resembled the following with the fields `First Name`, `Last Name`, `Email`, `Phone`, `Subject`, and `Message`.
 

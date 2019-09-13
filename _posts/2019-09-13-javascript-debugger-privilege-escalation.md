@@ -1,6 +1,6 @@
 ---
 title: "Using Browser Debugger to Reverse Engineer Angular App for Privilege Escalation"
-date: 2019-09-02
+date: 2019-09-13
 tags: [bug bounty, web application]
 categories: [hacking]
 author_profile: false
