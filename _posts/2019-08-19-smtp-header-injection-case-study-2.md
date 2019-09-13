@@ -13,7 +13,7 @@ The focus this time is to use a SMTP Header Injection payload to remove the auto
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/smtp_cs2/initial_ex_email.png" alt="example of auto-generated message in email" class="left-align shadow" style="width:calc(1010px * .66667)">
 
-The point of this proof-of-concept for the bug bounty submission was to show the true potential implications of this vulnerabillity by further demonstrating how a dedicated attacker might abuse this to further legitimize the vector as a relay for spam. Removing the automatic message would avoid questions or suspicions being raised by recipients due to the message being included in every exchange. Also, much of the personal appeal for attempting to exploit the vulnerability in this way just came from the challenge of having to do it within the limited 30 character payload.
+The point of this proof-of-concept for the bug bounty submission was to show the true potential implications of this vulnerabillity by further demonstrating how a dedicated attacker might abuse this to legitimize the vector as a relay for spam. Removing the automatic message would avoid questions or suspicions being raised by recipients due to the message being included in every exchange. Also, much of the personal appeal for attempting to exploit the vulnerability in this way just came from the challenge of having to do it within the limited 30 character payload.
 
 I can't go through them all here but many attempts to get rid of that auto-generated line were made, using a variety of different techniques. The ideas ranged from using CSS selectors to make the existing body invisible, using C-style escape sequences to "backspace" the entire line or insert enough newlines until the message couldn't be seen anymore, submitting a malformed header to cause Outlook to attach the entire body as a whole to the email itself, HTML injection into the First Name field to comment out the latter half of the message, and dozens of attempts with other headers and injection attempts into other fields besides the Subject; all this while abiding by the 30 character limit imposed by server-side validations on the Subject field.
 
@@ -330,7 +330,6 @@ Content-Transfer-Encoding: 7bit
 </html>
 ------=_Part_2337_1756916918.30493762935--
 ```
-
 
 This showed how to fine-tune the payload for a SMTP Header Injection found in this web application, to completely take control of and modify the message in the email sent through the app's "Contact Us" page. This proof-of-concept, as well as that in the previous Case Study, helped to show the implications of the vulnerability, rather than just simply showing that some arbitrary data could be injected with or without an actual effect.
 
