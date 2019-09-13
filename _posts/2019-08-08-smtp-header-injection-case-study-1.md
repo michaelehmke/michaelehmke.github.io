@@ -22,7 +22,7 @@ The page resembled the following with the fields `First Name`, `Last Name`, `Ema
 
 Through some testing it was found that the `Subject` field, and that field alone, was vulnerable to SMTP Header Injection. I was able to inject `Cc`, `Bcc`, etc. headers and could break out of the headers to inject content into the body. Client-side validations on the front-end prevented unexpected data from being submitted, but submitting the form with direct requests bypassed the validations so that a user may enter any information into the fields. 
 
-Endpoint for direct requests:
+API endpoint for direct requests:
 
 ```
    https://haxxme.com/api/contact
